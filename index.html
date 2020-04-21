@@ -1,10 +1,78 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sv">
+
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=0"
+          charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Yatzy</title>
+
+    <link rel="stylesheet" href="css/grid.css">
+    <link rel="stylesheet" href="css/dice.css">
+    <link rel="stylesheet" href="css/style.css">
+    <!--    <script src="https://unpkg.com/vuex@3.0.1/dist/vuex.js"></script>-->
+    <!--    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>-->
 </head>
+
 <body>
 
+<section>
+    <div id="app" class="row">
+        <div class="col span-1-of-2 box ">
+            <div class="left-division">
+                <h3>Roll Dices</h3>
+                <div class="mydices">
+                    <game-box
+                            v-for="dice in dices"
+                            v-bind:key="dice.id"
+                            v-bind:value="dice.value"
+                            v-bind:name="dice.name"
+                            v-bind:is-selected="dice.isSelected"
+                            v-on:select="dice.isSelected = !dice.isSelected"
+                            v-bind:class="{dice_border: dice.isSelected}"
+                    ></game-box>
+                    <br>
+                    <button class="btn-full"  v-on:click="rollDice" v-if="this.rerolls < 3">Roll the dice</button>
+                    <button class="btn-ghost" id="newGame" v-on:click="newGame">New Game</button>
+                    <br>
+                    <br>
+                    <p >You have used <span style="color: red ;font-weight: bold">{{rerolls}} </span> of  your <span style="color: blue ;font-weight: bold">3</span> rolling rights</p>
+                </div>
+            </div>
+
+
+        </div>
+
+        <div class="col span-1-of-2 box">
+
+
+            <div class="left-division" >
+                <h3>Scores</h3>
+                <table v-for="score in scores"  :key="score.id">
+                    <tr>
+
+                        <td> <button class="btn btn-full" style="width: 100px;  height:40px"  @click="selectScore(score.id)" :disabled="score.isSelected">{{ score.value }}</button></td>
+                        <td>{{score.text}}</td>
+                    </tr>
+                </table>
+                <br>
+                <p> <span style="margin-left: 10px; font-weight: bold; color: darkred"> Totalscore: {{totalScore}}</span></p>
+
+
+
+
+        </div>
+    </div>
+</section>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="index.js"> </script>
+<script>
+
+
+</script>
 </body>
+
 </html>
+
+
